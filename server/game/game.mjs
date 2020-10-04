@@ -71,7 +71,7 @@ export default class Game {
         variant: ''
       },
       showAcceptOrRejectTeamBtns: false,
-      showSucceedOrFailQuestBtns: false
+      showYesOrNoQuestBtns: false
     };
     this.roleList = {};
     this.players = [];
@@ -110,7 +110,7 @@ export default class Game {
         variant: ''
       },
       showAcceptOrRejectTeamBtns: false,
-      showSucceedOrFailQuestBtns: false
+      showYesOrNoQuestBtns: false
     };
     this.roleList = {};
     this.quests = {};

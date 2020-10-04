@@ -105,7 +105,7 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
       game.assignTeamResult();
       revealVoteResults('team', currentQuest.acceptOrRejectTeam);
       io.in(roomCode).emit('updateBotRiskScores', currentQuest);
-      if (currentQuest.teamAccepted) showSucceedAndFailBtnsToPlayersOnQuest();
+      if (currentQuest.teamAccepted) showYesAndNoBtnsToPlayersOnQuest();
       else incrementVoteTrackAndAssignNextLeader();
     }
   });
@@ -121,7 +121,7 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
 
     // all votes received
     if (currentQuest.questVotesNeededLeft <= 0) {
-      game.gameState['showSucceedOrFailQuestBtns'] = false;
+      game.gameState['showYesOrNoQuestBtns'] = false;
       game.assignQuestResult();
       revealVoteResults('quest', currentQuest.votes);
       io.in(roomCode).emit('updateBotRiskScores', currentQuest);
@@ -243,15 +243,15 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
     }
   }
 
-  function showSucceedAndFailBtnsToPlayersOnQuest() {
+  function showYesAndNoBtnsToPlayersOnQuest() {
     updateGameStatus('Waiting for quest team to go on quest.');
     game.gameState['showAcceptOrRejectTeamBtns'] = false;
-    game.gameState['showSucceedOrFailQuestBtns'] = true;
+    game.gameState['showYesOrNoQuestBtns'] = true;
 
     game.players.forEach(player => {
       if (player.onQuest && !player.voted) {
         const disableFailBtn = player.team === "Good"; //check if player is good so they can't fail quest
-        io.to(player.socketID).emit('showSucceedOrFailQuestBtns', disableFailBtn);
+        io.to(player.socketID).emit('showYesOrNoQuestBtns');
       }
     });
   }
@@ -353,8 +353,8 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
       socket.emit('revealVoteResults', { type: 'team', votes: currentQuest.acceptOrRejectTeam });
     }
 
-    if (game.gameState['showSucceedOrFailQuestBtns'] && !player.voted) {
-      showSucceedAndFailBtnsToPlayersOnQuest();
+    if (game.gameState['showYesOrNoQuestBtns'] && !player.voted) {
+      showYesAndNoBtnsToPlayersOnQuest();
     } else if (currentQuest.questVotesNeededLeft <= 0) {
       socket.emit('revealVoteResults', { type: 'quest', votes: currentQuest.votes });
     }

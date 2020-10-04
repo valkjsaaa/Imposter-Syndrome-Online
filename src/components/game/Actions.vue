@@ -22,17 +22,20 @@
         >Reject Team</b-button>
       </div>
       <div v-if="showQuestVoteBtns">
+        <div>
+          Question example?
+        </div>
         <b-button
           class="avalon-btn-primary big"
           id="succeed-btn"
           @click="questVote('succeed')"
-        >Succeed Quest</b-button>
+        >Yes</b-button>
         <b-button
           v-if="!disableFailBtn"
           class="avalon-btn-primary big"
           id="fail-btn"
           @click="questVote('fail')"
-        >Fail Quest</b-button>
+        >No</b-button>
       </div>
     </b-col>
   </b-row>
@@ -71,9 +74,9 @@ export default {
     showAcceptOrRejectTeamBtns(bool) {
       this.showAcceptRejectButtons = bool;
     },
-    showSucceedOrFailQuestBtns(disableFailBtn) {
+    showYesOrNoQuestBtns() {
       this.showQuestVoteBtns = true;
-      this.disableFailBtn = disableFailBtn;
+      this.disableFailBtn = false;
     }
   }
 };

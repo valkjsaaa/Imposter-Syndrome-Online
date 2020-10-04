@@ -64,7 +64,7 @@ export default class GameBot {
             }
         });
 
-        this.socket.on('showSucceedOrFailQuestBtns', () => {
+        this.socket.on('showYesOrNoQuestBtns', () => {
             let decision;
 
             if (GameRooms[this.roomCode].currentQuestNum === 1) decision = 'succeed';
