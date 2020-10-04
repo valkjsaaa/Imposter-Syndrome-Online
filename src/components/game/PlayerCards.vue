@@ -30,6 +30,9 @@
         <strong>Role:</strong>
         {{ player.role }}
         <br />
+        <strong>Word:</strong>
+        {{ player.word }}
+        <br />
         <b-badge v-if="player.onQuest" class="avalon-badge">On Quest</b-badge>
         <span v-if="player.disconnected === true" class="font-italic">Disconnected</span>
       </h6>
