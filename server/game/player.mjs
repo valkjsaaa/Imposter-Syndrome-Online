@@ -4,7 +4,7 @@ export default class Player {
    * @param {string} name - The nickname entered by the player when they join the room
    * @param {string} type - 'Guest' if joining a room, 'Host' if creating a room
    * @property {string} team - 'Good' or 'Evil'
-   * @property {string} role - Player's role (Merlin, Loyal servant of arthur, etc)
+   * @property {string} word - Player's world
    * @property {boolean} leader - Indicates if the player is the leader of the quest
    * @property {boolean} onQuest - Indicates if the player is on the quest 
    * @property {boolean} voted - Indicates if the player has voted on team/quest
@@ -16,13 +16,7 @@ export default class Player {
     this.socketID = socketID;
     this.name = name;
     this.type = type;
-    this.team = '';
-    this.role = '';
-    this.leader = false;
-    this.onQuest = false;
-    this.voted = false;
-    this.disconnected = false;
-    this.assassinated = false;
+    this.reset()
   }
 
   reconnect(socketID) {
@@ -32,7 +26,7 @@ export default class Player {
 
   reset() {
     this.team = '';
-    this.role = '';
+    this.word = '';
     this.leader = false;
     this.onQuest = false;
     this.voted = false;

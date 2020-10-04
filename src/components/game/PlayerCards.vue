@@ -85,9 +85,10 @@ export default {
       event.target.blur();
       this.$socket.emit("removePlayerFromQuest", playerName);
     },
-    assassinatePlayer(playerName) {
-      this.$socket.emit("assassinatePlayer", playerName);
-    },
+    //TODO: deal with word guessing
+    // assassinatePlayer(playerName) {
+    //   this.$socket.emit("assassinatePlayer", playerName);
+    // },
     getPlayerNotes(key) {
       const savedNotes = sessionStorage.getItem(key);
       this.playerNotes = savedNotes && savedNotes.length > 0 ? savedNotes : null;

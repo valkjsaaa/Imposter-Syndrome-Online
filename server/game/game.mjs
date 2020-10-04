@@ -9,42 +9,73 @@ export const GoodTeam = new Set(['Merlin', 'Loyal Servant of Arthur', 'Percival'
 // value: object of game roles and how many
 const BaseRoles = {
   5: {
-    'Merlin': 1,
-    'Assassin': 1,
-    'Loyal Servant of Arthur': 2,
-    'Minion of Mordred': 1
+    'GoodTrue': 3,
+    'GoodFalse': 1,
+    'Evil': 1
   },
   6: {
-    'Merlin': 1,
-    'Assassin': 1,
-    'Loyal Servant of Arthur': 3,
-    'Minion of Mordred': 1
+    'GoodTrue': 3,
+    'GoodFalse': 2,
+    'Evil': 1
   },
   7: {
-    'Merlin': 1,
-    'Assassin': 1,
-    'Loyal Servant of Arthur': 3,
-    'Minion of Mordred': 2
+    'GoodTrue': 4,
+    'GoodFalse': 1,
+    'Evil': 2
   },
   8: {
-    'Merlin': 1,
-    'Assassin': 1,
-    'Loyal Servant of Arthur': 4,
-    'Minion of Mordred': 2
+    'GoodTrue': 4,
+    'GoodFalse': 2,
+    'Evil': 2
   },
   9: {
-    'Merlin': 1,
-    'Assassin': 1,
-    'Loyal Servant of Arthur': 5,
-    'Minion of Mordred': 2
+    'GoodTrue': 5,
+    'GoodFalse': 2,
+    'Evil': 2
   },
   10: {
-    'Merlin': 1,
-    'Assassin': 1,
-    'Loyal Servant of Arthur': 5,
-    'Minion of Mordred': 3
+    'GoodTrue': 5,
+    'GoodFalse': 3,
+    'Evil': 2
   }
 };
+
+const Dictionary = [
+  {
+    'WordPair': ['Tofu', 'Steak'],
+    'Questions': [
+        'Is it usually white?',
+        'Is it usually oily/fatty?',
+        'Is it usually used with butter?',
+        'Is it usually used in Asian food?',
+        'Is it animal product?',
+    ],
+    "Answers": [
+        true,
+        false,
+        false,
+        true,
+        true,
+    ]
+  },
+  {
+    'WordPair': ['Tofu', 'Steak'],
+    'Questions': [
+      'Is it usually white?',
+      'Is it usually oily/fatty?',
+      'Is it usually used with butter?',
+      'Is it usually used in Asian food?',
+      'Is it animal product?'
+    ],
+    "Answers": [
+      true,
+      false,
+      false,
+      true,
+      true,
+    ]
+  }
+]
 
 export default class Game {
   /**
@@ -60,6 +91,8 @@ export default class Game {
    * @property {number} questSuccesses - Number of successful quests
    * @property {number} leaderIndex 
    * @property {boolean} winningTeam - 'Good' or 'Evil'
+   * @property {boolean} firstCorrect
+   * @property {number} dictionaryIndex
    */
   constructor(roomCode) {
     this.roomCode = roomCode;
@@ -82,6 +115,8 @@ export default class Game {
     this.questSuccesses = 0;
     this.leaderIndex = 0;
     this.winningTeam = null;
+    this.firstCorrect = true;
+    this.dictionaryIndex = 0;
   }
 
   static get BaseRoles() {
@@ -244,20 +279,22 @@ export default class Game {
     questSuccessful ? this.questSuccesses++ : this.questFails++;
   }
 
-  /**
-   * @param {string} socketID 
-   * @param {string} name 
-   * @returns {boolean}
-   */
-  assassinatePlayer(name) {
-    let playerToAssassinate = this.getPlayer('name', name);
-    if (playerToAssassinate && playerToAssassinate.team === 'Good') {
-      playerToAssassinate.assassinated = true;
-      playerToAssassinate.role === 'Merlin' ? this.winningTeam = 'Evil' : this.winningTeam = 'Good';
-      return true;
-    }
-    return false;
-  }
+  //TODO: deal with word guessing
+
+  // /**
+  //  * @param {string} socketID
+  //  * @param {string} name
+  //  * @returns {boolean}
+  //  */
+  // assassinatePlayer(name) {
+  //   let playerToAssassinate = this.getPlayer('name', name);
+  //   if (playerToAssassinate && playerToAssassinate.team === 'Good') {
+  //     playerToAssassinate.assassinated = true;
+  //     playerToAssassinate.role === 'Merlin' ? this.winningTeam = 'Evil' : this.winningTeam = 'Good';
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   /**
    * @param {string} name
@@ -319,39 +356,39 @@ export default class Game {
     }
   }
 
+  getTrueWord() {
+    return Dictionary[this.dictionaryIndex].WordPair[this.firstCorrect ? 0 : 1]
+  }
+
+  getFalseWord() {
+    return Dictionary[this.dictionaryIndex].WordPair[this.firstCorrect ? 1 : 0]
+  }
+
   /**
    * @param {Object} optionalRoles 
    */
   assignRoles(optionalRoles) {
     let shuffledIdentities;
     let teamObj = JSON.parse(JSON.stringify(Game.BaseRoles[this.players.length]));
-    if (optionalRoles.length > 0) {
-      optionalRoles.forEach(optionalRole => {
-        switch (optionalRole) {
-          case 'Percival':
-            teamObj['Loyal Servant of Arthur']--;
-            teamObj['Percival'] = 1;
-            break;
-          case 'Mordred':
-            teamObj['Minion of Mordred']--;
-            teamObj['Mordred'] = 1;
-            break;
-          case 'Oberon':
-            teamObj['Minion of Mordred']--;
-            teamObj['Oberon'] = 1;
-            break;
-          case 'Morgana':
-            teamObj['Minion of Mordred']--;
-            teamObj['Morgana'] = 1;
-            break;
-        }
-      });
-    }
+    this.dictionaryIndex = Math.floor(Math.random() * (Dictionary.length + 1))
+    this.firstCorrect = Math.random() > 0.5
     this.roleList = populateRoleList(teamObj);
     shuffledIdentities = shuffle(objectToArray(teamObj));
     for (let i in this.players) {
-      this.players[i].role = shuffledIdentities[i];
-      this.players[i].team = Game.GoodTeam.has(shuffledIdentities[i]) ? 'Good' : 'Evil';
+      let word = "";
+      let team = "";
+      if (shuffledIdentities[i] === "GoodTrue") {
+        word = this.getTrueWord()
+        team = "Good"
+      } else if (shuffledIdentities[i] === "GoodFalse") {
+        word = this.getFalseWord()
+        team = "Good"
+      } else {
+        word = "Imposter"
+        team = "Evil"
+      }
+      this.players[i].word = word;
+      this.players[i].team = team;
     }
   }
 

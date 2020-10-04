@@ -130,21 +130,23 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
     }
   });
 
-  /**
-   * @param {string} playerName 
-   */
-  socket.on('assassinatePlayer', function (playerName) {
-    if (!game.assassinatePlayer(playerName)) return;
-    socket.emit('showAssassinateBtn', false);
-    io.in(roomCode).emit('updatePlayerCards', game.players);
+  //TODO: deal with word guessing
 
-    if (game.winningTeam === 'Evil') {
-      updateGameStatus(`Assassin successfully discovered and killed ${playerName}, who was Merlin. <br/>Evil wins!`, 'danger');
-    } else {
-      updateGameStatus(`Assassin killed ${playerName}, who is not Merlin. <br/>Good wins!`, 'success');
-    }
-    io.to(game.getPlayer('type', 'Host').socketID).emit('showLobbyBtn', true);
-  });
+  // /**
+  //  * @param {string} playerName
+  //  */
+  // socket.on('assassinatePlayer', function (playerName) {
+  //   if (!game.assassinatePlayer(playerName)) return;
+  //   socket.emit('showAssassinateBtn', false);
+  //   io.in(roomCode).emit('updatePlayerCards', game.players);
+  //
+  //   if (game.winningTeam === 'Evil') {
+  //     updateGameStatus(`Assassin successfully discovered and killed ${playerName}, who was Merlin. <br/>Evil wins!`, 'danger');
+  //   } else {
+  //     updateGameStatus(`Assassin killed ${playerName}, who is not Merlin. <br/>Good wins!`, 'success');
+  //   }
+  //   io.to(game.getPlayer('type', 'Host').socketID).emit('showLobbyBtn', true);
+  // });
 
   socket.on('disconnect', function () {
     if (Object.keys(GameRooms).length === 0 || typeof game === 'undefined') return;
@@ -227,13 +229,14 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
     }
     //good is on track to win, evil can assassinate
     else if (game.questSuccesses >= 3) {
+      //TODO: deal with word guessing
       updateGameStatus(`Good has triumphed over Evil by succeeding ${game.questSuccesses} quests. 
                       <br/>Waiting for Assassin to attempt to assassinate Merlin.`)
 
-      io.to(game.getPlayer('role', 'Assassin').socketID).emit('updateGameStatus', {
-        msg: `You are the assassin. <br/> Assassinate the player you think is Merlin to win the game for evil.`
-      });
-      io.to(game.getPlayer('role', 'Assassin').socketID).emit('showAssassinateBtn', true);
+      // io.to(game.getPlayer('role', 'Assassin').socketID).emit('updateGameStatus', {
+      //   msg: `You are the assassin. <br/> Assassinate the player you think is Merlin to win the game for evil.`
+      // });
+      // io.to(game.getPlayer('role', 'Assassin').socketID).emit('showAssassinateBtn', true);
     }
     else {
       //choose next leader and start next quest
@@ -258,7 +261,7 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
 
   function updatePlayerCards() {
     game.players.forEach(player => {
-      io.to(player.socketID).emit('updatePlayerCards', sanitizeTeamView(player.socketID, player.role, game.players));
+      io.to(player.socketID).emit('updatePlayerCards', sanitizeTeamView(player.socketID, player.team, game.players));
     });
     game.spectators.forEach(spectator => {
       io.to(spectator.socketID).emit('updatePlayerCards', sanitizeTeamView(spectator.socketID, 'Spectator', game.players))
@@ -367,7 +370,8 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
     if (currentQuest.leaderInfo.name === playerName && currentQuest.playersNeededLeft <= 0 && !currentQuest.leaderHasConfirmedTeam) {
       socket.emit('showConfirmTeamBtnToLeader', true);
     }
-    if (game.questSuccesses >= 3 && game.winningTeam === null && player.role === 'Assassin') {
+    if (game.questSuccesses >= 3 && game.winningTeam === null && player.team === 'Evil') {
+      //TODO: deal with word guessing
       socket.emit('updateGameStatus', {
         msg: `You are the assassin. <br/> Assassinate the player you think is Merlin to win the game for evil.`
       });
