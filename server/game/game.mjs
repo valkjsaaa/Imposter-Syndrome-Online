@@ -216,6 +216,10 @@ export default class Game {
     return this.quests[this.currentQuestNum];
   }
 
+  getCurrentQuestion() {
+    return Dictionary[this.dictionaryIndex].Questions[this.currentQuestNum - 1]
+  }
+
   /**
    * @param {string} name 
    */
@@ -370,7 +374,7 @@ export default class Game {
   assignRoles(optionalRoles) {
     let shuffledIdentities;
     let teamObj = JSON.parse(JSON.stringify(Game.BaseRoles[this.players.length]));
-    this.dictionaryIndex = Math.floor(Math.random() * (Dictionary.length + 1))
+    this.dictionaryIndex = Math.floor(Math.random() * (Dictionary.length))
     this.firstCorrect = Math.random() > 0.5
     this.roleList = populateRoleList(teamObj);
     shuffledIdentities = shuffle(objectToArray(teamObj));

@@ -253,8 +253,7 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
 
     game.players.forEach(player => {
       if (player.onQuest && !player.voted) {
-        const disableFailBtn = player.team === "Good"; //check if player is good so they can't fail quest
-        io.to(player.socketID).emit('showYesOrNoQuestBtns');
+        io.to(player.socketID).emit('showYesOrNoQuestBtns', game.getCurrentQuestion());
       }
     });
   }

@@ -23,7 +23,7 @@
       </div>
       <div v-if="showQuestVoteBtns">
         <div>
-          Question example?
+          {{ question }}
         </div>
         <b-button
           class="avalon-btn-primary big"
@@ -51,7 +51,8 @@ export default {
       showAcceptRejectButtons: false,
       showTeamVoteResults: false,
       showQuestVoteBtns: false,
-      disableFailBtn: false
+      disableFailBtn: false,
+      question: "Question Example?"
     };
   },
   computed: mapState(["playerName"]),
@@ -74,9 +75,10 @@ export default {
     showAcceptOrRejectTeamBtns(bool) {
       this.showAcceptRejectButtons = bool;
     },
-    showYesOrNoQuestBtns() {
+    showYesOrNoQuestBtns(question) {
       this.showQuestVoteBtns = true;
       this.disableFailBtn = false;
+      this.question = question;
     }
   }
 };
