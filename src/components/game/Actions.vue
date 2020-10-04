@@ -28,13 +28,13 @@
         <b-button
           class="avalon-btn-primary big"
           id="succeed-btn"
-          @click="questVote('succeed')"
+          @click="questVote(true)"
         >Yes</b-button>
         <b-button
           v-if="!disableFailBtn"
           class="avalon-btn-primary big"
           id="fail-btn"
-          @click="questVote('fail')"
+          @click="questVote(false)"
         >No</b-button>
       </div>
     </b-col>
@@ -63,9 +63,9 @@ export default {
     playerAcceptsOrRejectsTeam(decision) {
       this.$socket.emit("playerAcceptsOrRejectsTeam", decision);
     },
-    questVote(decision) {
+    questVote(choice) {
       this.showQuestVoteBtns = false;
-      this.$socket.emit("questVote", decision);
+      this.$socket.emit("questVote", choice);
     }
   },
   sockets: {

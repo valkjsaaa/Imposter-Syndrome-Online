@@ -405,4 +405,15 @@ export default class Game {
     });
   }
 
+  /**
+   * @param {boolean} choice
+   */
+  judgeDecision(choice) {
+    if (choice === Dictionary[this.dictionaryIndex].Answers[this.currentQuestNum - 1]) {
+      return 'succeed';
+    } else {
+      return 'fail';
+    }
+  }
+
 }

@@ -113,8 +113,8 @@ export function gameSocket(io, socket, port, roomCode, playerName, reconnect) {
   /**
    * @param {string} decision 
    */
-  socket.on('questVote', function (decision) {
-    if (!game.addQuestVote(socket.id, decision)) return;
+  socket.on('questVote', function (choice) {
+    if (!game.addQuestVote(socket.id, game.judgeDecision(choice))) return;
 
     let currentQuest = game.getCurrentQuest();
     updateGameStatus(`Waiting for ${currentQuest.questVotesNeededLeft} more player(s) to go on quest.`);
