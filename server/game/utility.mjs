@@ -1,5 +1,3 @@
-import { GoodTeam } from './game.mjs';
-
 /**
  * Example object
  * 10: {
@@ -13,12 +11,12 @@ import { GoodTeam } from './game.mjs';
  */
 export function populateRoleList(teamObj) {
     let roleList = {
-        'good': {},
-        'evil': {}
+        'good': [],
+        'evil': []
     };
     for (let role in teamObj) {
         if (teamObj[role] <= 0) continue;
-        if (GoodTeam.has(role)) roleList['good'][role] = teamObj[role];
+        if (role !== 'Evil') roleList['good'][role] = teamObj[role];
         else roleList['evil'][role] = teamObj[role];
     }
     return roleList;
@@ -26,28 +24,22 @@ export function populateRoleList(teamObj) {
 
 /**
  * @param {string} socketID 
- * @param {string} role 
+ * @param {string} team
  * @param {array} players 
  * @returns {array}
  */
-export function sanitizeTeamView(socketID, role, players) {
+export function sanitizeTeamView(socketID, team, players) {
     const clonedPlayers = JSON.parse(JSON.stringify(players));
 
-    if (role === 'Spectator') {
+    if (team === 'Spectator') {
         return sanitizeForSpectators(clonedPlayers);
     }
-    else if (role === 'Percival') {
-        return sanitizeForPercival(socketID, clonedPlayers);
-    }
-    else if (role === 'Merlin') {
-        return sanitizeForMerlin(socketID, clonedPlayers);
-    }
-    //loyal servant of arthur or Oberon
-    else if (GoodTeam.has(role) || role === 'Oberon') {
+    //good team
+    else if (team === 'Good') {
         return sanitizeForGoodTeam(socketID, clonedPlayers);
     }
     //evil team
-    else if (!GoodTeam.has(role)) {
+    else if (team === 'Evil') {
         return sanitizeForEvilTeam(socketID, clonedPlayers);
     }
 }
@@ -59,7 +51,7 @@ export function sanitizeTeamView(socketID, role, players) {
  */
 function sanitizeForSpectators(players) {
     for (const i in players) {
-        players[i].role = 'hidden';
+        players[i].word = 'hidden';
         players[i].team = 'hidden';
     }
     return players;
@@ -75,28 +67,7 @@ function sanitizeForGoodTeam(socketID, players) {
     for (const i in players) {
         if (players[i].socketID === socketID) continue;
         else {
-            players[i].role = 'hidden';
-            players[i].team = 'hidden';
-        }
-    }
-    return players;
-}
-
-/**
- * Merlin & Morgana both appear to be Merlin
- * @param {string} socketID 
- * @param {array} players 
- * @returns {array}
- */
-function sanitizeForPercival(socketID, players) {
-    for (const i in players) {
-        if (players[i].socketID === socketID) continue;
-        else if (players[i].role == 'Merlin' || players[i].role == 'Morgana') {
-            //Merlin & Morgana both appear to be Merlin
-            players[i].role = 'Merlin';
-            players[i].team = 'Good';
-        } else {
-            players[i].role = 'hidden';
+            players[i].word = 'hidden';
             players[i].team = 'hidden';
         }
     }
@@ -112,32 +83,9 @@ function sanitizeForPercival(socketID, players) {
 function sanitizeForEvilTeam(socketID, players) {
     for (const i in players) {
         if (players[i].socketID === socketID) continue;
-        else if (GoodTeam.has(players[i].role) || players[i].role == 'Oberon') {
+        else if (players[i].team === "Good") {
             // hide good team's info (& Oberon)
-            players[i].role = 'hidden';
-            players[i].team = 'hidden';
-        } else {
-            players[i].role = 'hidden';
-        }
-    }
-    return players;
-}
-
-/**
- * Hide identities of good team & Morgana
- * @param {string} socketID 
- * @param {array} players 
- * @returns {array}
- */
-function sanitizeForMerlin(socketID, players) {
-    for (const i in players) {
-        if (players[i].socketID === socketID) continue;
-        else if (GoodTeam.has(players[i].role) || players[i].role == 'Mordred') {
-            // hide good team's info (& Mordred)
-            players[i].role = 'hidden';
-            players[i].team = 'hidden';
-        } else {
-            players[i].role = 'hidden';
+            players[i].word = 'hidden';
         }
     }
     return players;
@@ -168,7 +116,7 @@ export function shuffle(array) {
 
 /**
  * Convert object to array for shuffling
- * @param {Object} team 
+ * @param {Object} obj
  * @returns {array}
  */
 export function objectToArray(obj) {

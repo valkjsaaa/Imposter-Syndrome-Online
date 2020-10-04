@@ -72,15 +72,17 @@ export default class GameBot {
             this.socket.emit('questVote', decision);
         });
 
-        this.socket.on('showAssassinateBtn', (showAssassinateBtn) => {
-            if (showAssassinateBtn) {
-                let toAssassinate = Math.floor(Math.random() * this.sanitizedPlayers.length);
-                while (this.sanitizedPlayers[toAssassinate].team === 'Evil') {
-                    toAssassinate = Math.floor(Math.random() * this.sanitizedPlayers.length);
-                }
-                this.socket.emit('assassinatePlayer', this.sanitizedPlayers[toAssassinate].name);
-            }
-        });
+        //TODO: deal with word guessing
+
+        // this.socket.on('showAssassinateBtn', (showAssassinateBtn) => {
+        //     if (showAssassinateBtn) {
+        //         let toAssassinate = Math.floor(Math.random() * this.sanitizedPlayers.length);
+        //         while (this.sanitizedPlayers[toAssassinate].team === 'Evil') {
+        //             toAssassinate = Math.floor(Math.random() * this.sanitizedPlayers.length);
+        //         }
+        //         this.socket.emit('assassinatePlayer', this.sanitizedPlayers[toAssassinate].name);
+        //     }
+        // });
     }
 
     initializePlayerRiskScores() {
