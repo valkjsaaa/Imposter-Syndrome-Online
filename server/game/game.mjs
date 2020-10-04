@@ -377,7 +377,12 @@ export default class Game {
     this.dictionaryIndex = Math.floor(Math.random() * (Dictionary.length))
     this.firstCorrect = Math.random() > 0.5
     this.roleList = populateRoleList(teamObj);
-    shuffledIdentities = shuffle(objectToArray(teamObj));
+    while (true) {
+      shuffledIdentities = shuffle(objectToArray(teamObj));
+      if (shuffledIdentities[0] !== "Evil") {
+        break
+      }
+    }
     for (let i in this.players) {
       let word = "";
       let team = "";
