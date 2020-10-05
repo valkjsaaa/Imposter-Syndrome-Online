@@ -27,9 +27,6 @@
         <strong>Team:</strong>
         {{ player.team }}
         <br />
-        <strong>Role:</strong>
-        {{ player.role }}
-        <br />
         <strong>Word:</strong>
         {{ player.word }}
         <br />
