@@ -41,38 +41,38 @@ const BaseRoles = {
 };
 
 const Dictionary = [
+  // {
+  //   'WordPair': ['Tofu', 'Steak'],
+  //   'Questions': [
+  //       'Is it usually white?',
+  //       'Is it usually oily/fatty?',
+  //       'Is it usually used with butter?',
+  //       'Is it usually used in Asian food?',
+  //       'Is it animal product?',
+  //   ],
+  //   "Answers": [
+  //       true,
+  //       false,
+  //       false,
+  //       true,
+  //       true,
+  //   ]
+  // },
   {
-    'WordPair': ['Tofu', 'Steak'],
+    'WordPair': ['Water', 'Fire'],
     'Questions': [
-        'Is it usually white?',
-        'Is it usually oily/fatty?',
-        'Is it usually used with butter?',
-        'Is it usually used in Asian food?',
-        'Is it animal product?',
+      'Is it hot?',
+      'Is it fluid?',
+      'Does wind affect it?',
+      'Can you hold it with cup?',
+      'Is it usually red/yellow?'
     ],
     "Answers": [
-        true,
-        false,
-        false,
-        true,
-        true,
-    ]
-  },
-  {
-    'WordPair': ['Tofu', 'Steak'],
-    'Questions': [
-      'Is it usually white?',
-      'Is it usually oily/fatty?',
-      'Is it usually used with butter?',
-      'Is it usually used in Asian food?',
-      'Is it animal product?'
-    ],
-    "Answers": [
-      true,
-      false,
       false,
       true,
+      false,
       true,
+      false,
     ]
   }
 ]
