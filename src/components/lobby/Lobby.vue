@@ -17,11 +17,11 @@
     </b-row>
     <b-row>
       <div class="container">
-        <b-button
-          class="setupButton avalon-btn-primary"
-          v-if="showSetupOptionsBtn"
-          v-b-modal.setupModal
-        >Setup Options</b-button>
+<!--        <b-button-->
+<!--          class="setupButton avalon-btn-primary"-->
+<!--          v-if="showSetupOptionsBtn"-->
+<!--          v-b-modal.setupModal-->
+<!--        >Setup Options</b-button>-->
         <ul class="lobbyList">
           <li v-for="(player, index) in players" :key="index" class="offset-1">
             <span

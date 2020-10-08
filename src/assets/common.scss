@@ -1,12 +1,23 @@
 /***********APP.VUE**************/
 #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif !important;
+    font-family: "Slackey", Helvetica, Arial, sans-serif !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
     text-align: center;
     color: #2c3e50;
     width: 100% !important;
 }
+
+@font-face {
+    font-family: 'Slackey';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Slackey Regular'), local('Slackey-Regular'),
+    url('./assets/slackey-v11-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('./assets/slackey-v11-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+
 .navbar-default {
     background: #eae7e3;
     border-color: #e7e7e7;
@@ -18,9 +29,10 @@
     }
 }
 body {
-    background-color: #d6cdc2;
-    background: url("./assets/castle-tan.jpg") right 30%;
-    background-attachment: fixed !important;
+    background: url("./assets/background-yellow.svg") no-repeat fixed center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 *,
@@ -46,11 +58,14 @@ p, span {
 svg {
     vertical-align: baseline !important;
 }
+.banner {
+    width:100%
+}
 
 @media screen and (min-width: 1px) {
     .navbar-default .navbar-brand {
         color: #777;
-        font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+        font-family: "Slackey", Helvetica, Arial, sans-serif;
         font-size: 18px;
     }
 
@@ -117,6 +132,7 @@ svg {
         padding-right: 15px;
     }
 }
+
 
 /****MOBILE SCREENS****/
 @media screen and (min-width: 1px) {

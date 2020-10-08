@@ -7,7 +7,7 @@
         width="32"
         height="32"
       />
-      AvalonGame
+      Imposter Syndrome
       <span v-if="roomCode">: Room {{ roomCode }}</span>
     </b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

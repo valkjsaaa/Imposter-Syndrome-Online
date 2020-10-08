@@ -7,6 +7,7 @@
       <Lobby v-if="!gameStarted" />
       <!-- Game -->
       <div class="main-board" v-if="gameStarted">
+        <SelfCard />
         <PlayerCards />
         <QuestCards />
         <VoteTrack />
@@ -40,9 +41,11 @@ import VoteResults from "@/components/game/VoteResults.vue";
 import RoleList from "@/components/game/RoleList.vue";
 import Spectators from "@/components/game/Spectators.vue";
 import { mapState } from "vuex";
+import SelfCard from "@/components/game/SelfCard.vue";
 
 export default {
   components: {
+    SelfCard,
     Lobby,
     PlayerCards,
     Chat,
