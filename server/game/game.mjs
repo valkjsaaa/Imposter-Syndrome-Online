@@ -41,23 +41,23 @@ const BaseRoles = {
 };
 
 const Dictionary = [
-  // {
-  //   'WordPair': ['Tofu', 'Steak'],
-  //   'Questions': [
-  //       'Is it usually white?',
-  //       'Is it usually oily/fatty?',
-  //       'Is it usually used with butter?',
-  //       'Is it usually used in Asian food?',
-  //       'Is it animal product?',
-  //   ],
-  //   "Answers": [
-  //       true,
-  //       false,
-  //       false,
-  //       true,
-  //       true,
-  //   ]
-  // },
+  {
+    'WordPair': ['Tofu', 'Steak'],
+    'Questions': [
+        'Is it usually white?',
+        'Is it usually oily/fatty?',
+        'Is it usually used with butter?',
+        'Is it usually used in Asian food?',
+        'Is it animal product?',
+    ],
+    "Answers": [
+        true,
+        false,
+        false,
+        true,
+        true,
+    ]
+  },
   {
     'WordPair': ['Water', 'Fire'],
     'Questions': [
@@ -74,7 +74,41 @@ const Dictionary = [
       true,
       false,
     ]
-  }
+  },
+  {
+    'WordPair': ['Bird', 'Turtle'],
+    'Questions': [
+      'Can it live underwater?',
+      'Does it have four legs?',
+      'Does the name have more than 5 letters?',
+      'Does the name have more than one vowel?',
+      'Are you likely to see one in a tree?',
+    ],
+    "Answers": [
+      false,
+      false,
+      false,
+      false,
+      true,
+    ]
+  },
+  {
+    'WordPair': ['Cake', 'Sushi'],
+    'Questions': [
+      'Does it sometimes have meat?',
+      'Is it sweet?',
+      'Does it have more than 4 letters?',
+      'Does it typically have seafood?',
+      'Is it typically described as having layers?',
+    ],
+    "Answers": [
+      false,
+      true,
+      false,
+      false,
+      true,
+    ]
+  },
 ]
 
 export default class Game {
