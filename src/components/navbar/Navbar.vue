@@ -1,12 +1,6 @@
 <template>
   <b-navbar toggleable="lg" class="navbar-default container">
     <b-navbar-brand>
-      <img
-        src="../../../public/img/icons/favicon-32x32.png"
-        alt="AvalonGame icon"
-        width="32"
-        height="32"
-      />
       Imposter Syndrome
       <span v-if="roomCode">: Room {{ roomCode }}</span>
     </b-navbar-brand>
@@ -53,103 +47,89 @@ export default {
       About: [
         {
           heading: "",
-          html: `<p>AvalonGame is a free online adaptation of the board game The Resistance: Avalon.<br/>
-                No registration or login is required, simply start playing by creating a room!</p>
-                <p><i>This is a passion project and not affiliated with the original game.</i></p>
-                <p>Development: <a href="https://github.com/HanaXu/Avalon-Online" target="__blank">
-                https://github.com/HanaXu/Avalon-Online <svg xmlns="http://www.w3.org/2000/svg" 
+          html: `<p>
+                Impostor Syndrome is a original game created by
+                <a href="https://jackieyang.me" target="__blank">Jackie Yang</a>,
+                <a href="https://cs.stanford.edu/~glorii/" target="__blank">Gloria Liu</a>, and
+                Jean Betterton
+                for Stanford Game Design Fundamentals course.
+                <br/>
+                The website code is partly adopted from <a href="https://github.com/HanaXu/Avalon-Online" target="__blank">Avalon-Online</a>.
+                <br/>
+                We used graphics by <a href="https://www.freepik.com/vectors/abstract">starline on www.freepik.com</a>, <a href="https://www.pngwave.com">pngwave.com</a>, and <a href="https://imgbin.com">imgbin.com</a>
+                </p>
+                <p>Development: <a href="https://github.com/valkjsaaa/Imposter-Syndrome-Online" target="__blank">
+                https://github.com/valkjsaaa/Imposter-Syndrome-Online <svg xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 12 16" width="12" height="16"><path fill-rule="evenodd" 
                 d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 
-                2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg></a></p>
-                <p>Discord: <a href="https://discord.gg/FNHduv3" target="__blank">https://discord.gg/FNHduv3 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 16" width="12" height="16"><path fill-rule="evenodd" 
-                d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 
-                2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg></a>`
+                2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg></a></p>`
         }
       ],
       Rules: [
         {
           heading: "Objective",
-          html: `Avalon is the game of hidden loyalty. Players are either Loyal
-                Servants of Arthur fighting for Good and honor or aligned with the Evil ways of Mordred.
-                <br/><br/>Good wins the game by: <ul><li>Successfully completing three Quests 
-                and ensuring Merlin is not assassinated at the end.</li></ul>
-                Evil wins if one of the following is true: <ul><li>Three Quests end in failure</li>
-                <li>By assassinating Merlin at the end</li> <li>If the votetrack hits 5.</li></ul>
-                Players may make any claims during the game.
-                Deception, accusation, and logical deducation are all equally important in order
-                for good to prevail or evil to rule the day.`
+          html: `<p>6 people are selected to go on a secret scientific mission.
+          Within the group, there are 5 scientists and 1 impostor.</p>
+          <p>
+          <br/>
+          Each scientist knows a theory. Three of them are genius scientists and know the correct theory.
+          Two of them are imcompetent scientists and have the wrong theory.
+          The scientists have to use the correct theory to complete the mission.
+          </p>
+          <br/>
+          The impostor doesn’t know any theory and wants to sabotage the mission or steal the correct theory.
+`
         },
         {
           heading: "Game Play",
-          html: `The game consists of several rounds; each round has a team building phase and a quest phase.<br/>
-                <ul><li>In the team building phase, the quest leader proposes a team to go on the quest.
-                <ul><li>All the players will either approve the proposed team and move to the quest phase</li>
-                <li>Or, reject the proposed team, pass leadership to the next player, and repeat the process until a team is approved.</li>
-                <li>If five teams are rejected in a single round, evil wins.</li></ul><li>In the
-                Quest phase, players selected to be on the team will annonymously vote to succeed or fail the quest.</li>
-                <ul><li>The quest will fail if there is at least 1 failed vote 
-                (unless indicated otherwise; some quests will require at least 2 fails)</li></ul></ul>`
+          html: `In the scientific mission, there are 5 experiments.
+          <br/>
+          Before each experiment, the members <b>share information</b>.
+          <br/>
+          Then, some members are <b>nominated</b> to do the experiment.
+          <br/>
+          Lastly, the nominated members <b>conduct</b> the experiment.
+          <br/>
+          If 3 out of 5 experiments are successful and the impostor can’t <b>guess</b> the correct theory then the scientists win.
+          Otherwise, the impostor wins.
+`
         },
         {
-          heading: "Assassinate Merlin",
-          html: `If 3 quests are completed successfully, evil players will have a final
-                opportunity to win the game by correctly guessing who Merlin is. <br/><br/>
-                Evil players may now openly discuss who they think Merlin is and the assassin
-                will choose one good player to assassinate. <ul><li>If the chosen player is Merlin, evil wins.</li>
-                <li>If the chosen player is not Merlin, good wins.</li></ul>`
-        }
-      ],
-      Roles: [
-        {
-          heading: "Loyal Servant of Arthur (good)",
-          html: `You have no special abilities.<br/>
-                Your primary goal is to figure out who is bad based on this order:
-                <ol><li>Mission success/failure</li>
-                <li>Voting</li>
-                <li>Deception indicators</li>`
+          heading: "Information Sharing - 2 minutes",
+          html: `<p>Each member takes a turn sharing one word that they believe describes the correct theory. Afterwards, members discuss the shared words and the results of previous experiments.
+          </p>
+          <br/>
+          <i>Scientist Suggestion</i>: You want to figure out the correct theory without letting the impostor figure it out also.
+          <br/>
+          <i>Impostor Suggestion</i>: You want to blend in as a scientist and maybe give misleading info.
+`
         },
         {
-          heading: "Minion of Mordred (evil)",
-          html: `You have no special abilities.
-                <ol><li>Your primary goal is to lose missions.</li><li>Your secondary goal is to try
-                to discover who Merlin is so that you can help the Assassin eliminate them at the end.</li></ol>`
+          heading: "Nomination process - 1 minute",
+          html: `<p>Numbers of scientists to nominate for each round: 2, 3, 2, 3, 3
+          </p><br/>
+          <p>Starting from the first player, the selected player is the team leader on this experiment.
+          The team leader can select a number of people to be on the team of this experiment. After expressing their opinion on the team selection in order, they vote on the selection. If the majority of players agree, the team proceeds and does the experiment. Otherwise, the next player becomes the team leader and proposes a new team.
+          </p>
+          <br/>
+          <i>Scientist Suggestion</i>: You want to nominate scientists that will all answer correctly.
+          <br/>
+          <i>Impostor Suggestion</i>: You want to nominate at least one scientist that will answer incorrectly or get nominated yourself. `
         },
         {
-          heading: "Merlin (good)",
-          html: `Your primary goal is to steer the knights correctly without being obvious you know who all the
-                minions are. This means you must make deductions based on actions taken by players in the game.
-                <br/><br/>How to give yourself away:
-                <ol><li>Knowing too much about who is evil.</li>
-                <li>Calling an evil player evil when there is not much/any reason to call them evil.</li>
-                <li>Being more helpful to the good side than usual.</li>
-                <li>Never being confused or surprised.</li></ol>`
+          heading: "Experiment process - 30 seconds",
+          html: `<p>The AI will ask binary questions about the theory to those who are nominated. An experiment is successful only if all of the answers are correct. In the end, the AI will announce the experimental result (success/failure) and how many incorrect answers there are.
+          </p><br/>
+          <i>Scientist Suggestion</i>: You want to answer the question correctly. Keep in mind that your theory may be incorrect.
+          <br/>
+          <i>Impostor Suggestion</i>: You want to answer the question incorrectly (or answer correctly to gain trust for future sabotages).
+          `
         },
         {
-          heading: "Assassin (evil)",
-          html: `At the end of the game, if 3 quests succeed, you can assassinate a good player you believe to be Merlin, winning the game for evil.
-                <ol><li>Your primary goal is to figure out who Merlin is. (who is voting correctly all the time, etc)</li></ol>`
-        },
-        {
-          heading: "Percival (good)",
-          html: `You know which two players are either Morgana or Merlin, but not specifically.
-                <br/>Adding Percival balances the game in favor of the good team.
-                <ol><li>Your primary goal is to pretend to be Merlin.</li><li>Your secondary goal is to
-                determine who Morgana is so you can vote down quests in which they try to participate.</li></ol>`
-        },
-        {
-          heading: "Morgana (evil)",
-          html: `You appear as Merlin to Percival, Percival does not know which is which.<ol><li>
-                Your primary goal is to pretend to be Merlin/good in order to be put on quests which you can then fail.</li></ol>`
-        },
-        {
-          heading: "Mordred (evil)",
-          html: `You appear as good to Merlin.<ol><li>Your primary goal is to pretend to be good and fail quests.</li></ol>`
-        },
-        {
-          heading: "Oberon (evil)",
-          html: `You do not know who the evil players are and vice versa. Merlin knows you are evil.<br/>
-                Recommended for veterans; Adding Oberon balances the game in favor of the good team.`
+          heading: "Guessing process - 1 minute",
+          html: `In order to hide the correct theory, each scientist comes up with a “fake theory” and saves it to the computer.
+          At the end of the mission, the impostor accesses the computer and can see the 4 fake theories and the 1 real theory.
+          If the impostor figures out which one is correct, the imposter wins.`
         }
       ]
     };
