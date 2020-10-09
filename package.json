@@ -5,7 +5,9 @@
   "scripts": {
     "vue": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "serve": "node --experimental-modules server/app.mjs"
+    "serve": "node --experimental-modules server/app.mjs",
+    "postinstall": "npm run build",
+    "start": "node server.mjs"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
@@ -16,6 +18,7 @@
     "imagemin-webpack-plugin": "^2.4.2",
     "jquery": "^3.4.0",
     "register-service-worker": "^1.6.2",
+    "serve-static": "^1.14.1",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "vue": "^2.6.6",
